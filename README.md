@@ -23,6 +23,12 @@ Polyfill libraries for dalbit used transpiling luau to lua (especially Lua 5.3)
 - [x] `bit32`
 - [ ] `utf8`
 
+### Tests
+Requires `lune` installed. We use [frktest](https://github.com/itsfrank/frktest) for tests.
+```sh
+lune run test
+```
+
 ### TO-DOs
 - [ ] Benchmarks `next` polyfill functions (between `luauNext` and `djb2Next`)
 
@@ -40,3 +46,4 @@ local a = newproxy() < 2 -- errors: "attempt to compare table < number"
 - [Luau](https://github.com/luau-lang/luau) - Some implementations of the polyfill were inspired/ported from original `Luau`'s source code(especially [hash tables](https://github.com/luau-lang/luau/blob/master/VM/src/ltable.cpp))
 - [Dekkonot](https://github.com/Dekkonot) - For [bitbuffer](https://github.com/dekkonot/bitbuffer/) and hashing function that [calculates `a * b` mod 32](https://github.com/Dekkonot/luau-hashing/blob/main/modules/xxhash32/init.luau) for polyfill's [luauNext](src/luauNext.luau) implementation.
 - Contributors of [kaledis](https://github.com/orpos/kaledis) - For bugs/issues finding/solving(especially `bit32` implementations for `Lua 5.1`) and battle testing in their [cool project](https://github.com/orpos/kaledis).
+- [frktest](https://github.com/itsfrank/frktest) - Super cool and simple test framework for lune.
