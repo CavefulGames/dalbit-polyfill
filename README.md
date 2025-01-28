@@ -11,9 +11,6 @@ Requires `lune` installed. We use [frktest](https://github.com/itsfrank/frktest)
 lune run test
 ```
 
-### TO-DOs
-- [ ] Benchmarks `next` polyfill functions (between `luauNext` and `djb2Next`)
-
 ### Limitations
 - Please do not depend on error messages. since we can't compare table and number(primitive types), polyfill's custom types such as `userdata` type will be shown as `table` when comparing numbers like this example code.
 ```luau
@@ -48,3 +45,7 @@ local a = newproxy() < 2 -- errors: "attempt to compare table < number"
 - [x] `bit32`
 - [x] `utf8`
 - [ ] `vector` (WIP)
+
+# TO-DOs
+- [ ] Implement [vector](https://rfcs.luau.org/vector-library.html) library.
+- [ ] Benchmark `next` polyfill functions (between `luauNext` and `djb2Next`)
