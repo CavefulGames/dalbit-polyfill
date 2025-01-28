@@ -3,6 +3,12 @@
 ## dalbit-polyfill
 Dalbit에서 Luau -> Lua(특히 Lua 5.3)로 트렌스파일링시 필요한 폴리필 라이브러리
 
+### 테스트
+`lune`이 설치되어있어야합니다. 테스트 프레임워크는 [frktest](https://github.com/itsfrank/frktest)가 사용되었습니다.
+```sh
+lune run test
+```
+
 ### 노트
 - 해당 라이브러리 소스코드는 Lua 5.3에서 동작하도록 설계되었으며, 개발시 정확한 타입체크를 위해 루아우 타입이 사용되어 `darklua` 변환없이는 일반 Lua에 의존하는 API는 Luau에서도 Lua 5.3에서도 실행 불가능한 상태입니다.
 
