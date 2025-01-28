@@ -4,7 +4,7 @@
 Dalbit에서 Luau -> Lua(특히 Lua 5.3)로 트렌스파일링시 필요한 폴리필 라이브러리
 
 ### 테스트
-`lune`이 설치되어있어야합니다. 테스트 프레임워크는 [frktest](https://github.com/itsfrank/frktest)가 사용되었습니다.
+`lune`이 설치되어있어야합니다. 테스트 프레임워크는 [frktest](https://github.com/itsfrank/frktest)가 사용되었습니다. `frktest` 패키지가 설치되어 있는지 확인하세요(패키지는 `pesde`로 관리됩니다.)
 ```sh
 lune run test
 ```

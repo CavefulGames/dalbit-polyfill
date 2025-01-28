@@ -6,7 +6,7 @@
 Polyfill libraries for dalbit used transpiling luau to lua (especially Lua 5.3)
 
 ### Tests
-Requires `lune` installed. We use [frktest](https://github.com/itsfrank/frktest) for tests.
+Requires `lune` installed. We use [frktest](https://github.com/itsfrank/frktest) for tests. So make sure `frktest` package is installed (Packages are managed by `pesde`.)
 ```sh
 lune run test
 ```
