@@ -16,12 +16,13 @@ Polyfill libraries for dalbit used transpiling luau to lua (especially Lua 5.3)
 #### Libraries
 - [x] `buffer`
 - [x] `math`
-- [x] `os` (sandboxed)
+- [x] `os`
 - [x] `string`
 - [x] `table`
 - [x] `debug`
 - [x] `bit32`
-- [ ] `utf8`
+- [x] `utf8`
+- [ ] `vector` (WIP)
 
 ### Tests
 Requires `lune` installed. We use [frktest](https://github.com/itsfrank/frktest) for tests.
