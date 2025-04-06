@@ -4,7 +4,7 @@ type vector = {
     z: number,
 }
 
-local privateKey = require("./privateKey")
+-- local privateKey = require("./privateKey")
 
 -- local math = require('./math')
 local abs = math.abs
@@ -24,17 +24,14 @@ end
 
 local function vector_create(x: number, y: number, z: number): vector
     return setmetatable({ 
-        [privateKey] = {
-            x=x, 
-            y=y, 
-            z=z,
-        },
+        x=x, 
+        y=y, 
+        z=z,
     }, {
         __newindex = function(_, key)
             error(`attempt to index vector with '{key}'`)
         end,
         __tostring = function(self)
-            self = self[privateKey] :: vector
             return `{self.x}, {self.y}, {self.z}`
         end,
     }) :: any
@@ -44,7 +41,7 @@ end
 -- print(vector_create(1, 2, 3))
 
 local function vector_magnitude(vec: vector)
-    vec = vec[privateKey]
+    -- vec = vec[privateKey]
     return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z) ^ 0.5
 end
 
@@ -52,7 +49,7 @@ end
 -- print(math.round(vector_magnitude(vector_create(10, 5, 5)) * 1000) / 1000)
 
 local function vector_normalize(vec: vector)
-    vec = vec[privateKey]
+    -- vec = vec[privateKey]
     local invSqrt = 1 / ((vec.x * vec.x + vec.y * vec.y + vec.z * vec.z) ^ 0.5)
     return vector_create(vec.x * invSqrt, vec.y * invSqrt, vec.z * invSqrt)
 end
@@ -61,8 +58,8 @@ end
 -- print(vector_normalize(vector_create(10, 5, 5)))
 
 local function vector_cross(vec1: vector, vec2: vector)
-    vec1 = vec1[privateKey]
-    vec2 = vec2[privateKey]
+    -- vec1 = vec1[privateKey]
+    -- vec2 = vec2[privateKey]
     return vector_create(vec1.y * vec2.z - vec1.z * vec2.y, vec1.z * vec2.x - vec1.x * vec2.z, vec1.x * vec2.y - vec1.y * vec2.x)
 end
 
@@ -70,8 +67,8 @@ end
 -- print(vector_cross(vector_create(10, 5, 5), vector_create(5, 5, 10)))
 
 local function vector_dot(vec1: vector, vec2: vector)
-    vec1 = vec1[privateKey]
-    vec2 = vec2[privateKey]
+    -- vec1 = vec1[privateKey]
+    -- vec2 = vec2[privateKey]
     return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z)
 end
 
@@ -79,8 +76,8 @@ end
 -- print(vector_dot(vector_create(10, 5, 5), vector_create(5, 5, 10)))
 
 local function vector_angle(vec1: vector, vec2: vector, axis: vector?)
-    vec1 = vec1[privateKey]
-    vec2 = vec2[privateKey]
+    -- vec1 = vec1[privateKey]
+    -- vec2 = vec2[privateKey]
     local cross = { vec1.y * vec2.z - vec1.z * vec2.y, vec1.z * vec2.x - vec1.x * vec2.z, vec1.x * vec2.y - vec1.y * vec2.x }
 
     local sin_vec1 = (cross[1]^2 + cross[2]^2 + cross[3] ^2) ^ 0.5
@@ -88,7 +85,7 @@ local function vector_angle(vec1: vector, vec2: vector, axis: vector?)
     local angle = atan2(sin_vec1, cos_vec1)
 
     if axis then
-        axis = axis[privateKey]
+        -- axis = axis[privateKey]
         if (cross[1] * axis.x + cross[2] * axis.y + cross[3] * axis.z) < 0 then
             angle = -angle
         end
@@ -101,7 +98,7 @@ end
 -- print(vector_angle(vector_create(10, 5, 5), vector_create(5, 5, 10), vector_create(10, 5, 5)))
 
 local function vector_floor(vec: vector)
-    vec = vec[privateKey]
+    -- vec = vec[privateKey]
     return vector_create(floor(vec.x), floor(vec.y), floor(vec.z))
 end
 
@@ -109,7 +106,7 @@ end
 -- print(vector_floor(vector_create(10.123, 20.234, 30.345)))
 
 local function vector_ceil(vec: vector)
-    vec = vec[privateKey]
+    -- vec = vec[privateKey]
     return vector_create(ceil(vec.x), ceil(vec.y), ceil(vec.z))
 end
 
@@ -117,7 +114,7 @@ end
 -- print(vector_ceil(vector_create(10.01, 20.222, 30.0001)))
 
 local function vector_abs(vec: vector)
-    vec = vec[privateKey]
+    -- vec = vec[privateKey]
     return vector_create(abs(vec.x), abs(vec.y), abs(vec.z))
 end
 
@@ -125,7 +122,7 @@ end
 -- print(vector_abs(vector_create(-10.01, 20.222, -30.0001)))
 
 local function vector_sign(vec: vector)
-    vec = vec[privateKey]
+    -- vec = vec[privateKey]
     return vector_create(sign(vec.x), sign(vec.y), sign(vec.z))
 end
 
@@ -133,9 +130,9 @@ end
 -- print(vector_sign(vector_create(-10, 20, -30)))
 
 local function vector_clamp(vec: vector, min: vector, max: vector)
-    vec = vec[privateKey]
-    min = min[privateKey]
-    max = max[privateKey]
+    -- vec = vec[privateKey]
+    -- min = min[privateKey]
+    -- max = max[privateKey]
 
     for k, v in min do
         if not ((v :: number) > max[k]) then
@@ -151,12 +148,12 @@ end
 -- print(vector_clamp(vector_create(10, -10, 50), vector_create(1, 1, 1), vector_create(5, 100, 100)))
 
 local function vector_min(vector: vector, ...: vector)
-    vector = vector[privateKey]
+    -- vector = vector[privateKey]
     local result = { vector.x, vector.y, vector.z }
     local args = { ... }
 
     for i=1, #args do
-        local vec: vector = args[i][privateKey]
+        local vec: vector = args[i] --// [privateKey]
         if vec.x < result[1] then
            result[1] = vec.x    
         end
@@ -175,12 +172,12 @@ end
 -- print(vector_min(vector_create(100, 100, 100), vector_create(1, 100, 100), vector_create(100, 2, 100), vector_create(100, 100, 3), vector_create(1, 1, 1)))
 
 local function vector_max(vector: vector, ...: vector)
-    vector = vector[privateKey]
+    -- vector = vector[privateKey]
     local result = { vector.x, vector.y, vector.z }
     local args = { ... }
 
     for i=1, #args do
-        local vec: vector = args[i][privateKey]
+        local vec: vector = args[i] --// [privateKey]
         if vec.x > result[1] then
            result[1] = vec.x    
         end
@@ -195,8 +192,8 @@ local function vector_max(vector: vector, ...: vector)
     return vector_create(result[1], result[2], result[3])
 end
 
--- print(vector.min(vector.create(-100, -100, -100), vector.create(1, 100, 100), vector.create(100, 2, 100), vector.create(100, 100, 3), vector.one))
--- print(vector_min(vector_create(-100, -100, -100), vector_create(1, 100, 100), vector_create(100, 2, 100), vector_create(100, 100, 3), vector_create(1, 1, 1)))
+-- print(vector.max(vector.create(-100, -100, -100), vector.create(1, 100, 100), vector.create(100, 2, 100), vector.create(100, 100, 3), vector.one))
+-- print(vector_max(vector_create(-100, -100, -100), vector_create(1, 100, 100), vector_create(100, 2, 100), vector_create(100, 100, 3), vector_create(1, 1, 1)))
 
 local vector_zero = vector_create(0, 0, 0)
 local vector_one: vector = vector_create(1, 1, 1)

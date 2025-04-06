@@ -867,5 +867,93 @@ return function()
 		end)
 	end)
 
-	
+	test.suite("vector", function() 
+		test.case("magnitude", function()
+			check.equal(utils.executeWithLuau([[
+
+			return string.sub(vector.magnitude(vector.create(10, 5, 5)), 1, 2)
+
+			]]))
+		end)
+
+		test.case("normalize", function()
+			check.equal(utils.executeWithLuau([[
+
+			return tostring(math.round(vector.normalize(vector.create(10, 5, 5)).x))
+
+			]]))
+		end)
+
+		test.case("cross", function()
+			check.equal(utils.executeWithLuau([[
+
+			return tostring(vector.cross(vector.create(10, 5, 5), vector.create(5, 5, 10)).x)
+
+			]]))
+		end)
+
+		test.case("dot", function()
+			check.equal(utils.executeWithLuau([[
+
+			return tostring(vector.dot(vector.create(10, 5, 5), vector.create(5, 5, 10)))
+
+			]]))
+		end)
+
+		test.case("angle", function()
+			check.equal(utils.executeWithLuau([[
+
+			return tostring(math.round(vector.angle(vector.create(10, 5, 5), vector.create(5, 5, 10), vector.create(10, 5, 5))))
+
+			]]))
+		end)
+
+		test.case("floor", function()
+			check.equal(utils.executeWithLuau([[
+
+			return tostring(vector.floor(vector.create(10.123, 20.234, 30.345)).x)
+
+			]]))
+		end)
+		
+		test.case("ceil", function()
+			check.equal(utils.executeWithLuau([[
+
+			return tostring(vector.ceil(vector.create(10.01, 20.222, 30.0001)).x)
+
+			]]))
+		end)
+
+		test.case("abs", function()
+			check.equal(utils.executeWithLuau([[
+
+			return tostring(math.round(vector.abs(vector.create(-10.01, 20.222, -30.0001)).x))
+
+			]]))
+		end)
+
+		test.case("sign", function()
+			check.equal(utils.executeWithLuau([[
+
+			return tostring(vector.sign(vector.create(-10, 20, -30)).x)
+
+			]]))
+		end)
+
+		test.case("min", function()
+			check.equal(utils.executeWithLuau([[
+
+			return tostring(vector.min(vector.create(100, 100, 100), vector.create(1, 100, 100), vector.create(100, 2, 100), vector.create(100, 100, 3), vector.one).x)
+
+			]]))
+		end)
+		
+		test.case("max", function()
+			check.equal(utils.executeWithLuau([[
+
+			return tostring(vector.max(vector.create(-100, -100, -100), vector.create(1, 100, 100), vector.create(100, 2, 100), vector.create(100, 100, 3), vector.one).x)
+			
+			]]))
+		end)
+	end)
 end
