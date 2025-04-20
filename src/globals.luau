@@ -434,4 +434,5 @@ return {
 	os = require("./os"),
 	string = require("./string"),
 	table = require("./table"),
+	vector = require("./vector"),
 }
