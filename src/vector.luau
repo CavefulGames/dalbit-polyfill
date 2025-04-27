@@ -31,7 +31,6 @@ end
 -- print(vector_create(1, 2, 3))
 
 local function vector_magnitude(vec: vector)
-    -- vec = vec[privateKey]
     return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z) ^ 0.5
 end
 
