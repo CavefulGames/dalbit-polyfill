@@ -46,7 +46,10 @@ end
 function utils.executeWithLuau(code: string): (string, string)
 	local luauResult = process.spawn("luau", nil, { stdin = [[pcall = function(fn, ...) return xpcall(fn, function(err) return err:gsub("^[^:]+:%d+: ", "") end, ...)  end;]] .. code })
 	if luauResult.ok then
-		return luauResult.stdout:sub(1, -3), utils.executePolyfill(code)
+		if luauResult.stdout:sub(-2) == '\r\n' then
+			return luauResult.stdout:sub(1, -3), utils.executePolyfill(code)
+		end
+		return luauResult.stdout:sub(1, -2), utils.executePolyfill(code)
 	else
 		error(`Luau failure:\nerr: {luauResult.stderr}\nstdout: {luauResult.stdout}`)
 	end
