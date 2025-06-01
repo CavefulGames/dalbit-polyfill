@@ -39,26 +39,14 @@ local function vector_create(x: number, y: number, z: number): vector
 	}) :: any
 end
 
--- print(vector.create(1, 2, 3))
--- print(vector_create(1, 2, 3))
-
--- print(vector.create(1, 2, 3) + vector.one)
--- print(vector_create(1, 2, 3) + vector_create(1, 1, 1))
-
 local function vector_magnitude(vec: vector)
 	return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z) ^ 0.5
 end
-
--- print(math.round(vector.magnitude(vector.create(10, 5, 5)) * 1000) / 1000)
--- print(math.round(vector_magnitude(vector_create(10, 5, 5)) * 1000) / 1000)
 
 local function vector_normalize(vec: vector)
 	local invSqrt = 1 / ((vec.x * vec.x + vec.y * vec.y + vec.z * vec.z) ^ 0.5)
 	return vector_create(vec.x * invSqrt, vec.y * invSqrt, vec.z * invSqrt)
 end
-
--- print(vector.normalize(vector.create(10, 5, 5)))
--- print(vector_normalize(vector_create(10, 5, 5)))
 
 local function vector_cross(vec1: vector, vec2: vector)
 	return vector_create(
@@ -68,15 +56,9 @@ local function vector_cross(vec1: vector, vec2: vector)
 	)
 end
 
--- print(vector.cross(vector.create(10, 5, 5), vector.create(5, 5, 10)))
--- print(vector_cross(vector_create(10, 5, 5), vector_create(5, 5, 10)))
-
 local function vector_dot(vec1: vector, vec2: vector)
 	return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z)
 end
-
--- print(vector.dot(vector.create(10, 5, 5), vector.create(5, 5, 10)))
--- print(vector_dot(vector_create(10, 5, 5), vector_create(5, 5, 10)))
 
 local function vector_angle(vec1: vector, vec2: vector, axis: vector?)
 	local cross =
@@ -95,36 +77,21 @@ local function vector_angle(vec1: vector, vec2: vector, axis: vector?)
 	return angle
 end
 
--- print(vector.angle(vector.create(10, 5, 5), vector.create(5, 5, 10), vector.create(10, 5, 5)))
--- print(vector_angle(vector_create(10, 5, 5), vector_create(5, 5, 10), vector_create(10, 5, 5)))
-
 local function vector_floor(vec: vector)
 	return vector_create(floor(vec.x), floor(vec.y), floor(vec.z))
 end
-
--- print(vector.floor(vector.create(10.123, 20.234, 30.345)))
--- print(vector_floor(vector_create(10.123, 20.234, 30.345)))
 
 local function vector_ceil(vec: vector)
 	return vector_create(ceil(vec.x), ceil(vec.y), ceil(vec.z))
 end
 
--- print(vector.ceil(vector.create(10.01, 20.222, 30.0001)))
--- print(vector_ceil(vector_create(10.01, 20.222, 30.0001)))
-
 local function vector_abs(vec: vector)
 	return vector_create(abs(vec.x), abs(vec.y), abs(vec.z))
 end
 
--- print(vector.abs(vector.create(-10.01, 20.222, -30.0001)))
--- print(vector_abs(vector_create(-10.01, 20.222, -30.0001)))
-
 local function vector_sign(vec: vector)
 	return vector_create(sign(vec.x), sign(vec.y), sign(vec.z))
 end
-
--- print(vector.sign(vector.create(-10, 20, -30)))
--- print(vector_sign(vector_create(-10, 20, -30)))
 
 local function vector_clamp(vec: vector, min: vector, max: vector)
 	for k, v in min :: any do
@@ -136,9 +103,6 @@ local function vector_clamp(vec: vector, min: vector, max: vector)
 
 	return vector_create(clamp(vec.x, min.x, max.x), clamp(vec.y, min.y, max.y), clamp(vec.z, min.z, max.z))
 end
-
--- print(vector.clamp(vector.create(10, -10, 50), vector.create(1, 1, 1), vector.create(5, 100, 100)))
--- print(vector_clamp(vector_create(10, -10, 50), vector_create(1, 1, 1), vector_create(5, 100, 100)))
 
 local function vector_min(vector: vector, ...: vector)
 	local result = { vector.x, vector.y, vector.z }
@@ -160,9 +124,6 @@ local function vector_min(vector: vector, ...: vector)
 	return vector_create(result[1], result[2], result[3])
 end
 
--- print(vector.min(vector.create(100, 100, 100), vector.create(1, 100, 100), vector.create(100, 2, 100), vector.create(100, 100, 3), vector.one))
--- print(vector_min(vector_create(100, 100, 100), vector_create(1, 100, 100), vector_create(100, 2, 100), vector_create(100, 100, 3), vector_create(1, 1, 1)))
-
 local function vector_max(vector: vector, ...: vector)
 	local result = { vector.x, vector.y, vector.z }
 	local args = { ... }
@@ -183,14 +144,8 @@ local function vector_max(vector: vector, ...: vector)
 	return vector_create(result[1], result[2], result[3])
 end
 
--- print(vector.max(vector.create(-100, -100, -100), vector.create(1, 100, 100), vector.create(100, 2, 100), vector.create(100, 100, 3), vector.one))
--- print(vector_max(vector_create(-100, -100, -100), vector_create(1, 100, 100), vector_create(100, 2, 100), vector_create(100, 100, 3), vector_create(1, 1, 1)))
-
 local vector_zero = vector_create(0, 0, 0)
 local vector_one: vector = vector_create(1, 1, 1)
-
--- print(vector.zero, vector.one)
--- print(vector_zero, vector_one)
 
 return {
 	abs = vector_abs,
