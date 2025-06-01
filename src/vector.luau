@@ -2,7 +2,7 @@ type vector = {
 	x: number,
 	y: number,
 	z: number,
-}
+} & number
 
 local math = require("./math")
 local abs = math.abs
@@ -24,11 +24,26 @@ local function vector_create(x: number, y: number, z: number): vector
 		__tostring = function(self)
 			return `{self.x}, {self.y}, {self.z}`
 		end,
+		__add = function(vec1: vector, vec2: vector)
+			return vector_create(vec1.x + vec2.x, vec1.y + vec2.y, vec1.z + vec2.z)
+		end,
+		__sub = function(vec1: vector, vec2: vector)
+			return vector_create(vec1.x - vec2.x, vec1.y - vec2.y, vec1.z - vec2.z)
+		end,
+		__mul = function(vec1: vector, vec2: vector)
+			return vector_create(vec1.x * vec2.x, vec1.y * vec2.y, vec1.z * vec2.z)
+		end,
+		__div = function(vec1: vector, vec2: vector)
+			return vector_create(vec1.x / vec2.x, vec1.y / vec2.y, vec1.z / vec2.z)
+		end,
 	}) :: any
 end
 
 -- print(vector.create(1, 2, 3))
 -- print(vector_create(1, 2, 3))
+
+-- print(vector.create(1, 2, 3) + vector.one)
+-- print(vector_create(1, 2, 3) + vector_create(1, 1, 1))
 
 local function vector_magnitude(vec: vector)
 	return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z) ^ 0.5
@@ -112,8 +127,8 @@ end
 -- print(vector_sign(vector_create(-10, 20, -30)))
 
 local function vector_clamp(vec: vector, min: vector, max: vector)
-	for k, v in min do
-		if not ((v :: number) > max[k]) then
+	for k, v in min :: any do
+		if not ((v :: number) > (max :: any)[k]) then
 			continue
 		end
 		error(`invalid argument #3 to 'clamp' (max.{k} must be greater than or equal to min.{k})`)
