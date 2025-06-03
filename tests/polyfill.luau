@@ -343,6 +343,29 @@ return function()
 
 			]]))
 		end)
+
+		test.case("access out of bounds", function()
+			check.table.equal(utils.execute([[
+
+			local b = buffer.create(4)
+
+			return {
+				pcall(function()
+					buffer.readu32(b, 5)
+				end),
+				pcall(function()
+					buffer.writeu32(b, 5, 1234)
+				end),
+				pcall(function()
+					buffer.readstring(b, 5, 1)
+				end),
+				pcall(function()
+					buffer.writestring(b, 5, "A", 1)
+				end),
+			}
+
+			]]))
+		end)
 	end)
 
 	test.suite("global functions", function()

@@ -131,6 +131,14 @@ local function writeu8(b: buffer_polyfill, offset: number, value: number)
 		expectNumber(offset, 3, funcName)
 	end
 
+	if _G.DALBIT_buffer_out_of_bounds then
+		local data = b[privateKey]
+		if offset + 1 > #data then
+			error("buffer access out of bounds")
+		end
+		data[offset + 1] = band(value, 0xFF)
+		return
+	end
 	b[privateKey][offset + 1] = band(value, 0xFF)
 end
 
@@ -143,6 +151,11 @@ local function writeu16(b: buffer_polyfill, offset: number, value: number)
 	end
 
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 2 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 	data[offset + 1] = band(value, 0xFF)
 	data[offset + 2] = band(rshift(value, 8), 0xFF)
 end
@@ -156,6 +169,11 @@ local function writeu32(b: buffer_polyfill, offset: number, value: number)
 	end
 
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 4 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 	data[offset + 1] = band(value, 0xFF)
 	data[offset + 2] = band(rshift(value, 8), 0xFF)
 	data[offset + 3] = band(rshift(value, 16), 0xFF)
@@ -169,6 +187,13 @@ local function readu8(b: buffer_polyfill, offset: number)
 		expectNumber(offset, 2, funcName)
 	end
 
+	if _G.DALBIT_buffer_out_of_bounds then
+		local data = b[privateKey]
+		if offset + 1 > #data then
+			error("buffer access out of bounds")
+		end
+		return data[offset + 1]
+	end
 	return b[privateKey][offset + 1]
 end
 
@@ -180,6 +205,11 @@ local function readu16(b: buffer_polyfill, offset: number)
 	end
 
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 2 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 	return bor(data[offset + 1], lshift(data[offset + 2], 8))
 end
 
@@ -191,6 +221,11 @@ local function readu32(b: buffer_polyfill, offset: number)
 	end
 
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 4 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 	return bor(
 		bor(bor(data[offset + 1], lshift(data[offset + 2], 8)), lshift(data[offset + 3], 16)),
 		lshift(data[offset + 4], 24)
@@ -211,6 +246,14 @@ local function writei8(b: buffer_polyfill, offset: number, value: number)
 		value = (128 + value) + 128
 	end
 
+	if _G.DALBIT_buffer_out_of_bounds then
+		local data = b[privateKey]
+		if offset + 1 > #data then
+			error("buffer access out of bounds")
+		end
+		data[offset + 1] = band(value, 0xFF)
+		return
+	end
 	b[privateKey][offset + 1] = band(value, 0xFF)
 end
 
@@ -227,6 +270,11 @@ local function writei16(b: buffer_polyfill, offset: number, value: number)
 	end
 
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 2 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 	data[offset + 1] = band(value, 0xFF)
 	data[offset + 2] = band(rshift(value, 8), 0xFF)
 end
@@ -244,6 +292,11 @@ local function writei32(b: buffer_polyfill, offset: number, value: number)
 	end
 
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 4 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 	data[offset + 1] = band(value, 0xFF)
 	data[offset + 2] = band(rshift(value, 8), 0xFF)
 	data[offset + 3] = band(rshift(value, 16), 0xFF)
@@ -257,6 +310,21 @@ local function readi8(b: buffer_polyfill, offset: number)
 		expectNumber(offset, 2, funcName)
 	end
 
+	if _G.DALBIT_buffer_out_of_bounds then
+		local data = b[privateKey]
+		if offset + 1 > #data then
+			error("buffer access out of bounds")
+		end
+		local value = data[offset + 1]
+		local sign = btest(value, 128)
+		value = band(value, 127)
+
+		if sign then
+			return value - 128
+		else
+			return value
+		end
+	end
 	local value = b[privateKey][offset + 1]
 	local sign = btest(value, 128)
 	value = band(value, 127)
@@ -276,6 +344,11 @@ local function readi16(b: buffer_polyfill, offset: number)
 	end
 
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 2 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 	local value = bor(data[offset + 1], lshift(data[offset + 2], 8))
 	local sign = btest(value, 32768)
 	value = band(value, 32767)
@@ -295,6 +368,11 @@ local function readi32(b: buffer_polyfill, offset: number)
 	end
 
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 4 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 	local value = bor(
 		bor(bor(data[offset + 1], lshift(data[offset + 2], 8)), lshift(data[offset + 3], 16)),
 		lshift(data[offset + 4], 24)
@@ -324,6 +402,11 @@ local function writef32(b: buffer_polyfill, offset: number, value: number)
 
 	local mantissa, exponent = frexp(value)
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 4 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 
 	if value == huge then
 		if sign then
@@ -387,6 +470,11 @@ local function writef64(b: buffer_polyfill, offset: number, value: number)
 
 	local mantissa, exponent = frexp(value)
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 8 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 
 	if value == math.huge then
 		if sign then
@@ -470,6 +558,11 @@ local function readf32(b: buffer_polyfill, offset: number)
 		expectNumber(offset, 2, funcName)
 	end
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 4 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 	local b0 = data[offset + 4]
 	local b1 = data[offset + 3]
 	local sign = btest(b0, 128)
@@ -505,6 +598,11 @@ local function readf64(b: buffer_polyfill, offset: number)
 		expectNumber(offset, 2, funcName)
 	end
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + 8 > #data then
+			error("buffer access out of bounds")
+		end
+	end
 	local b0 = data[offset + 8]
 	local b1 = data[offset + 7]
 
@@ -554,6 +652,16 @@ local function writestring(b: buffer_polyfill, offset: number, value: string, co
 	end
 
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		local writeSize = count or #value
+		if offset + writeSize > #data then
+			error("buffer access out of bounds")
+		end
+		for i = 1, writeSize do
+			data[offset + i] = byte(value, i, i)
+		end
+		return
+	end
 	for i = 1, count or #value do
 		data[offset + i] = byte(value, i, i)
 	end
@@ -568,6 +676,11 @@ local function readstring(b: buffer_polyfill, offset: number, count: number)
 	end
 
 	local data = b[privateKey]
+	if _G.DALBIT_buffer_out_of_bounds then
+		if offset + count > #data then
+			error("buffer access out of bounds")
+		end
+	end
 	local str = {}
 	for i = 1, count do
 		str[i] = chars[data[offset + i] + 1]

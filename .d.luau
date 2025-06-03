@@ -7,7 +7,8 @@ declare _G: {
 	DALBIT_test: boolean,
 	DALBIT_emulate_type_error: boolean,
 	DALBIT_luau_hash_table: boolean,
-	DALBIT_emulate_next: boolean
+	DALBIT_emulate_next: boolean,
+	DALBIT_buffer_out_of_bounds: boolean,
 }
 
 declare load: <A...>(chunk: string | () -> string, chunkname: string?, mode: ("bt" | "b" | "t")?, env: { [string]: any }?) -> (((A...) -> any)?, string?)
