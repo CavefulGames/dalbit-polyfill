@@ -33,6 +33,7 @@ local a = newproxy() < 2 -- errors: "attempt to compare table < number"
 - [x] `unpack`
 - [x] `newproxy`
 - [x] `gcinfo`
+- [x] `next`
 - More details [here](libs/globals.luau)
 
 ### Libraries
@@ -44,8 +45,10 @@ local a = newproxy() < 2 -- errors: "attempt to compare table < number"
 - [x] `debug`
 - [x] `bit32`
 - [x] `utf8`
-- [ ] `vector` (WIP)
+- [x] `vector`
 
 # TO-DOs
-- [ ] Implement [vector](https://rfcs.luau.org/vector-library.html) library.
+- [x] Implement [vector](https://rfcs.luau.org/vector-library.html) library.
 - [ ] Benchmark `next` polyfill functions (between `luauNext` and `djb2Next`)
+- [ ] Implement `math.lerp`, `buffer.writebits`, and `buffer.readbits` [#9](https://github.com/CavefulGames/dalbit-polyfill/issues/9)
+- [ ] Implement `require` [#15](https://github.com/CavefulGames/dalbit-polyfill/issues/15)
