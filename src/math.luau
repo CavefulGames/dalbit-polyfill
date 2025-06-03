@@ -189,6 +189,10 @@ local function sign(n: number): number
 	end
 end
 
+local function lerp(a: number, b: number, t: number): number
+	return a + (b - a) * t
+end
+
 local dalbit_math
 if _G.DALBIT_test then
 	dalbit_math = {
@@ -205,6 +209,7 @@ if _G.DALBIT_test then
 		log10 = log10,
 		round = round,
 		sign = sign,
+		lerp = lerp,
 		abs = math.abs,
 		acos = math.acos,
 		asin = math.asin,
@@ -263,6 +268,7 @@ else
 		sin = math.sin,
 		sqrt = math.sqrt,
 		tan = math.tan,
+		lerp = (math :: any).lerp or lerp,
 	} :: typeof(math)
 end
 
