@@ -21,3 +21,6 @@ emulate_type_error = true # emulates luau's type error and messages too
 # next
 emulate_next = true
 luau_hash_table = true
+
+# buffer
+buffer_out_of_bounds = true # if you want to enable checking out of bounds error for buffer
