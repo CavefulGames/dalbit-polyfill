@@ -1,4 +1,4 @@
-std = "luau+lua53"
+std = "luau"
 
 [lints]
 global_usage = "allow"
