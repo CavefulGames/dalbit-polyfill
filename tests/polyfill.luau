@@ -616,6 +616,16 @@ return function()
 			return math.noise(1.5, 2.5, 3.5)
 			]]))
 		end)
+
+		test.case("lerp", function()
+			check.equal(utils.executeWithLuau([[
+			return tostring(math.lerp(1, 2, 0.5))
+			]]))
+
+			check.equal(utils.executeWithLuau([[
+			return tostring(math.lerp(10, 20, 0.25))
+			]]))
+		end)
 	end)
 
 	test.suite("string", function()
@@ -867,7 +877,7 @@ return function()
 		end)
 	end)
 
-	test.suite("vector", function() 
+	test.suite("vector", function()
 		test.case("magnitude", function()
 			check.equal(utils.executeWithLuau([[
 
@@ -915,7 +925,7 @@ return function()
 
 			]]))
 		end)
-		
+
 		test.case("ceil", function()
 			check.equal(utils.executeWithLuau([[
 
@@ -947,12 +957,12 @@ return function()
 
 			]]))
 		end)
-		
+
 		test.case("max", function()
 			check.equal(utils.executeWithLuau([[
 
 			return tostring(vector.max(vector.create(-100, -100, -100), vector.create(1, 100, 100), vector.create(100, 2, 100), vector.create(100, 100, 3), vector.one).x)
-			
+
 			]]))
 		end)
 	end)
