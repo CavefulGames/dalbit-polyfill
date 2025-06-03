@@ -1,4 +1,4 @@
-name = "not_for_publish/not_for_publish"
+name = "pesde/not_for_publish"
 version = "0.0.0"
 private = true
 
@@ -10,7 +10,8 @@ default = "https://github.com/daimond113/pesde-index"
 
 [engine]
 lune = "0.8.9"
+pesde = "0.7.0-rc.1"
 
 [dev_dependencies]
 frktest = { name = "itsfrank/frktest", version = "^0.0.2" }
-base64 = { name = "synpixel/base64", version = "^3.0.0" }
+base64 = { name = "synpixel/base64", version = "^3.0.1" }
