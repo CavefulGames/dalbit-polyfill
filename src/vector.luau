@@ -30,10 +30,16 @@ local function vector_create(x: number, y: number, z: number): vector
 		__sub = function(vec1: vector, vec2: vector)
 			return vector_create(vec1.x - vec2.x, vec1.y - vec2.y, vec1.z - vec2.z)
 		end,
-		__mul = function(vec1: vector, vec2: vector)
+		__mul = function(vec1: vector, vec2: vector | number)
+			if typeof(vec2) == "number" then
+				return vector_create(vec1.x * vec2, vec1.y * vec2, vec1.z * vec2)
+			end
 			return vector_create(vec1.x * vec2.x, vec1.y * vec2.y, vec1.z * vec2.z)
 		end,
-		__div = function(vec1: vector, vec2: vector)
+		__div = function(vec1: vector, vec2: vector | number)
+			if typeof(vec2) == "number" then
+				return vector_create(vec1.x / vec2, vec1.y / vec2, vec1.z / vec2)
+			end
 			return vector_create(vec1.x / vec2.x, vec1.y / vec2.y, vec1.z / vec2.z)
 		end,
 	}) :: any
