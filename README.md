@@ -51,4 +51,4 @@ local a = newproxy() < 2 -- errors: "attempt to compare table < number"
 - [x] Implement [vector](https://rfcs.luau.org/vector-library.html) library.
 - [ ] Benchmark `next` polyfill functions (between `luauNext` and `djb2Next`)
 - [ ] Implement `math.lerp`, `buffer.writebits`, and `buffer.readbits` [#9](https://github.com/CavefulGames/dalbit-polyfill/issues/9)
-- [ ] Implement `require` [#15](https://github.com/CavefulGames/dalbit-polyfill/issues/15)
+- [x] Implement `require` [#15](https://github.com/CavefulGames/dalbit-polyfill/issues/15)
