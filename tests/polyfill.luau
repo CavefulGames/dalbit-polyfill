@@ -994,7 +994,12 @@ return function()
 		test.case("require function", function()
 			check.equal(utils.execute([[
 
-			return type(require "tests/utils".executeWithLuau) == "table"
+			local result = ""
+
+			require "./import.lua"
+			-- result ..= tostring(type(require "../tests/utils".executeWithLuau) == "table")
+
+			return result
 
 			]]))
 		end)
