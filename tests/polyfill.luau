@@ -994,7 +994,7 @@ return function()
 		test.case("require function", function()
 			check.equal(utils.execute([[
 
-			return type(require "tests/utils".executeWithLuau)
+			return type(require "tests/utils".executeWithLuau) == "table"
 
 			]]))
 		end)
