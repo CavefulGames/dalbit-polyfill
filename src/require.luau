@@ -9,6 +9,13 @@ local function dalbit_require(path: string)
     local require_prefix = sub(polyfill_path, -len("require") - 1, -len("require") - 1)
     local call_dir = sub(match(call_path, "^(.*)" .. require_prefix) or "", 2)
     
+    if sub(path, 1, 2) == "./" then
+        path = sub(path, 3)
+        call_dir = call_dir .. require_prefix .. path
+
+        return require(call_dir) :: any
+    end
+
     while sub(path, 1, 3) == "../" do
         local last_dir = match(call_dir, "^(.*)" .. require_prefix) or ""
         if last_dir == "" then
@@ -19,16 +26,11 @@ local function dalbit_require(path: string)
 
         path = sub(path, 4)
     end
-
-    if sub(path, 1, 2) == "./" then
-        path = sub(path, 3)
-        call_dir = call_dir .. require_prefix .. path
+    
+    if call_dir == "" then
+        call_dir = call_dir .. path
     else
-        if call_dir == "" then
-            call_dir = call_dir .. path
-        else
-            call_dir = call_dir .. require_prefix .. path
-        end
+        call_dir = call_dir .. require_prefix .. path
     end
 
     return require(call_dir) :: any
