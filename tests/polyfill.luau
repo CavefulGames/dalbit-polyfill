@@ -989,4 +989,14 @@ return function()
 			]]))
 		end)
 	end)
+
+	test.suite("require", function()
+		test.case("require function", function()
+			check.equal(utils.execute([[
+
+			return type(require "tests/utils".executeWithLuau)
+
+			]]))
+		end)
+	end)
 end
