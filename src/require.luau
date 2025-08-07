@@ -2,7 +2,7 @@ local sub = string.sub
 local len = string.len
 local gsub = string.gsub
 
-return function(path)
+return function<T>(path: string): any
     local polyfill_path = (debug :: any).getinfo(1, "S").source
     local path_prefix = sub(polyfill_path, -len("require.luau") - 1, -len("require.luau") - 1)
 
