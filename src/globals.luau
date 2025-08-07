@@ -425,6 +425,7 @@ return {
 	getfenv = dalbit_getfenv :: typeof(getfenv),
 	_VERSION = "Luau",
 	loadstring = dalbit_loadstring :: typeof(loadstring),
+	require = require("./require"),
 
 	-- libraries
 	bit32 = require("./bit32"),
