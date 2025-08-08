@@ -30,7 +30,7 @@ local function dalbit_require(path: string)
     if call_dir == "" then
         call_dir = call_dir .. path
     else
-        call_dir = call_dir .. require_prefix .. path
+        call_dir = call_dir .. require_prefix .. gsub(path, "/", require_prefix)
     end
 
     return require(call_dir) :: any
