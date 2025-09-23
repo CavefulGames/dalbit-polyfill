@@ -83,6 +83,12 @@ return function()
 		test.case("extract", function()
 			check.equal(utils.execute([[
 
+			return bit32.extract(0x1234, 4)
+
+			]]))
+
+			check.equal(utils.execute([[
+
 			return bit32.extract(0x1234, 4, 4)
 
 			]]))
