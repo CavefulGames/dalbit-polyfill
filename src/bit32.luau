@@ -179,16 +179,15 @@ local function btest(x: number, y: number): boolean -- can be converted directly
 	return band(x, y) ~= 0
 end
 
-local function extract(n: number, field: number, width: number): number
+local function extract(n: number, field: number, width: number?): number
 	if _G.DALBIT_emulate_type_error then
 		local funcName = "extract"
 		expectNumber(n, 1, funcName)
 		expectNumber(field, 2, funcName)
-		expectNumber(width, 3, funcName)
 	end
 
 	width = width or 1
-	return band(rshift(n, field), 2 ^ width - 1)
+	return band(rshift(n, field), 2 ^ width :: number - 1)
 end
 
 local function rrotate(x: number, disp: number): number
