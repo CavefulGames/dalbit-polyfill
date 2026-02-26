@@ -148,25 +148,12 @@ local mainposition_getters = {
 	boolean = hashbool,
 }
 
-local nodesOf: {
-	[{}]: {
-		[number]: LuaNode_key_val_next, -- {key,value,next}
-		n: number -- length of nodes
-	}
-} = {}
-
 return function<K, V>(t: {[K]: V}, key: K?): (K?, V)
 	if _G.DALBIT_runtime_type_checking then
 		expectTable(t, "table", 1, "next")
 	end
 
-	local nodes = nodesOf[t]
-	if not nodes then
-		nodes = {
-			n = 0,
-		}
-		nodesOf[t] = nodes
-	end
+	local nodes = { n = 0 }
 
 	-- sets arrayvector and nodevector
 	local sizearray = 0

@@ -1,24 +1,11 @@
-local bit32 = require("./bit32")
+local djb2 = require("./djb2")
 local expectTable = require("./expectTable")
 
-local byte = string.byte
-local band = bit32.band
 local insert = table.insert
 local sort = table.sort
 
 local function compareHash(a: any, b)
 	return a.hash < b.hash
-end
-
-local function djb2(s: string)
-	local hash = 5381
-
-	for i = 1, #s do
-		hash = hash * 33 + byte(s, i)
-		hash = band(hash, 0xffffffff)
-	end
-
-	return hash
 end
 
 return function<K, V>(t: {[K]: V}, key: K?): (K?, V)
